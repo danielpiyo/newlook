@@ -5,6 +5,7 @@ import { CategoriesService } from 'src/app/_service/categories.service';
 import { AlertService } from 'src/app/_service';
 import { NewCategory } from 'src/app/_model/category.model';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 // category interface
 export interface Categories {
@@ -77,6 +78,7 @@ export class NewCategoryModal {
   constructor(
     public dialogRef: MatDialogRef<NewCategoryModal>,
     private alertService: AlertService,
+    private messageService: MessageService,
     private categoryService: CategoriesService,
     private router: Router,
     @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -95,6 +97,10 @@ export class NewCategoryModal {
         this.alertService.success('Category Added Succesfully');
         console.log('NewCat', response);
         this.router.navigate(['/admin/categories']);
+        this.messageService.add({
+          severity: 'info', summary: `Succesfully Added New Category`,
+          detail: this.categoryModel.category_name
+        });
         this.onNoClick();
     }, error => {
       console.log('catError', error);
