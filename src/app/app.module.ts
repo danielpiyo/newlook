@@ -46,6 +46,7 @@ import { AdminGuard } from './_guard/admin.guard';
 import { ReportsComponent } from './components/admin/reports/reports.component';
 import { AppSettings } from './shared/app.setting';
 import { LogsTrackComponent } from './components/admin/logs-track/logs-track.component';
+import { AdvancedCategoryComponent } from './components/admin/advanced-category/advanced-category.component';
 
 
 
@@ -59,7 +60,7 @@ import { LogsTrackComponent } from './components/admin/logs-track/logs-track.com
     NewStationModal, NewDepartmentModal, NewSectionModal, NewEquipementModal,
     RepairEquipementModal,
     UserHomeComponent,
-    UserRequestComponent, UserDashboardComponent, ReportsComponent, LogsTrackComponent
+    UserRequestComponent, UserDashboardComponent, ReportsComponent, LogsTrackComponent, AdvancedCategoryComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, BrowserAnimationsModule, PanelMenuModule,

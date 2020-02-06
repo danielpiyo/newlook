@@ -44,11 +44,11 @@ export interface Equipements {
 export class ReportsComponent implements OnInit {
   userToken: UserToken = new UserToken();
   allStationEquip: [];
-  station = true;
+  station = false;
   department = false;
   stationSubscription: Subscription;
   categoryData: any;
-  category = false;
+  category = true;
   categorySubscription: Subscription;
   allCategories: any;
   availableCategories: any;
@@ -137,14 +137,15 @@ goTostation() {
     this.categorySubscription = this.reoprtService.getCategoryReport(this.userToken)
     .subscribe((res: []) => {
       this.allCategories = res;
-      this.allCategories.forEach(element => {
-        this.availableCategories = element.name;
-        this.categoryTotals = element.value;
-        console.log(this.allCategories);
-        console.log(this.availableCategories);
-        console.log( this.categoryTotals );
-        this.chart();
-      });
+      this.categoryDataChart =  res;
+      // this.allCategories.forEach(element => {
+      //   this.availableCategories = element.name;
+      //   this.categoryTotals = element.value;
+      //   console.log(this.allCategories);
+      //   console.log(this.availableCategories);
+      //   console.log( this.categoryTotals );
+        // this.chart();
+      // });
     }, error => {
       console.log('categoryErrr', error);
     });
@@ -156,14 +157,14 @@ goTostation() {
       this.equipement = false;
     }
 
-chart() {
-  this.categoryDataChart = [
-    {
-      name: this.availableCategories,
-      value: this.categoryTotals
-    },
-  ];
-}
+// chart() {
+//   this.categoryDataChart = [
+//     {
+//       name: this.availableCategories,
+//       value: this.categoryTotals
+//     },
+//   ];
+// }
     // tslint:disable-next-line: member-ordering
 
     public onSelect(event) {

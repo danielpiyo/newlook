@@ -124,6 +124,7 @@ export class RepairEquipementModal {
       console.log('Repair', res);
       this.router.navigate(['/admin/equi-repaire']);
       this.alertService.success('Sent for Repair');
+      this.onNoClick();
     }, error => {
       console.log('ErrReap', error);
     });

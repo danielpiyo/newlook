@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { UserToken } from 'src/app/_model/user';
 import { EquipementService } from 'src/app/_service/equipement.service';
+import { Subscription } from 'rxjs';
+import { Settings } from 'src/app/shared/setting.model';
+import { AppSettings } from 'src/app/shared/app.setting';
 
 @Component({
   selector: 'app-admin-home',
@@ -17,14 +20,16 @@ export class AdminHomeComponent implements OnInit {
   totalInstore: any;
   totalDamaged: any;
   totalRepair: any;
+
   constructor(private messageService: MessageService,
               private equipmentService: EquipementService) {
     this.userToken.token = JSON.parse(localStorage.getItem('currentToken'));
+
   }
 
   ngOnInit() {
     this.damageCharts();
-    this.doughnuts();
+    // this.doughnuts();
     this.getTotalActiveEquip();
     this.getTotalUsers();
     this.getTotalDamaged();
@@ -39,13 +44,13 @@ export class AdminHomeComponent implements OnInit {
         {
           label: 'Allocation Requests',
           data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
+          fill: true,
           borderColor: '#4bc0c0'
         },
         {
           label: 'Reallocation Request',
           data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
+          fill: true,
           borderColor: '#565656',
 
         }
@@ -53,10 +58,13 @@ export class AdminHomeComponent implements OnInit {
     };
   }
 
+  onSelect(event) {
+    console.log(event);
+  }
 
   selectData(event) {
     this.messageService.add({
-      severity: 'info', summary: 'Data Selected',
+      severity: 'info', summary: `Selected`,
       detail: this.data.datasets[event.element._datasetIndex].data[event.element._index]
     });
   }
@@ -96,32 +104,5 @@ export class AdminHomeComponent implements OnInit {
       .subscribe((res) => {
         this.totalRepair = res[0].total_equipements_repair;
       });
-  }
-
-  doughnuts(){
-    this.dataDough = {
-      labels: ['Desktops','Laptops','Printers', 'Scanners', 'Projectors', 'KeyBoards'],
-      datasets: [
-          {
-              data: [300, 200, 100, 50, 30, 450],
-              backgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56",
-                  '#4bc0c0',
-                  '#565656',
-                  'green'
-              ],
-              hoverBackgroundColor: [
-                  "#FF6384",
-                  "#36A2EB",
-                  "#FFCE56",
-                  '#4bc0c0',
-                  '#565656',
-                  'green'
-              ]
-          }]
-      };
-
   }
 }
