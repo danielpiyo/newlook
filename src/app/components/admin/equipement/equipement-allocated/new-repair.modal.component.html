@@ -1,0 +1,20 @@
+<mat-card class="panel panel-info">
+        <div class="panel-heading">
+            Sending Equipement for Repair
+        </div>
+        <hr>
+        <div class="opportunity-container">           
+    
+            <mat-form-field appearance="outline">
+                <mat-label>Company Name</mat-label>
+                <input matInput placeholder="Company Name" [(ngModel)]="repairModel.company_repair"
+                    #company_repair="ngModel" name="company_repair">
+            </mat-form-field>
+    
+            <hr>
+            <mat-card mat-dialog-actions>
+                <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+                <button mat-button color="primary" (click)="sendNow()">SUBMIT</button>
+            </mat-card>
+        </div>
+    </mat-card>

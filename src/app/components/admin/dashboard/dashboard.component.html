@@ -1,0 +1,17 @@
+<mat-card class="header-menu" data-test="title">
+    <h2>Asset Management</h2>
+</mat-card> <br> <br>
+<app-alert></app-alert>
+<div fxLayout="row" fxLayout.lt-sm="column" class="dashboard-holder">
+    <div fxFlex="19.5" fxFlexOffset="1.5" data-test="menu-holder">
+        <p-panelMenu [model]="items" [style]="{'width':'100%'}"></p-panelMenu>
+        <hr>
+        <button mat-raised-button (click)="logout()"> <mat-icon class="mat-19">settings_power</mat-icon>LogOut Of the Account</button>
+    </div>
+    <div fxFlex="0.5"></div>
+    <div fxFlex="80" data-test="content-holder">        
+            <!-- <alert></alert> -->           
+            <router-outlet></router-outlet>       
+
+    </div>
+</div>

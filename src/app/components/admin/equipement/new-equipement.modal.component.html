@@ -1,0 +1,51 @@
+<mat-card class="panel panel-info">
+    <div class="panel-heading">
+        Adding New Equipement
+    </div>
+    <hr>
+    <div class="opportunity-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Category</mat-label>
+            <mat-select placeholder="Select" [(ngModel)]="equipementModel.category_id" name="category_id">
+                <mat-option *ngFor="let cate of categories" value={{cate.category_id}}>{{cate.category_name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Equipement Name</mat-label>
+            <input matInput placeholder="Equipement Name" [(ngModel)]="equipementModel.equipement_name"
+                #equipement_name="ngModel" name="equipement_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Equipement Brand</mat-label>
+            <input matInput placeholder="Brand" [(ngModel)]="equipementModel.equipement_brand"
+                #equipement_brand="ngModel" name="equipement_brand">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Equipement Model</mat-label>
+            <input matInput placeholder="Model" [(ngModel)]="equipementModel.equipement_type" #equipement_type="ngModel"
+                name="equipement_type">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Equipement Serial</mat-label>
+            <input matInput placeholder="Sereal" [(ngModel)]="equipementModel.equipement_serial"
+                #equipement_serial="ngModel" name="equipement_serial">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="details" [(ngModel)]="equipementModel.details" #details="ngModel"
+                name="details"></textarea>
+        </mat-form-field>
+
+        <hr>
+        <mat-card mat-dialog-actions>
+            <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+            <button mat-button color="primary" (click)="addNewEquipementNow()">SUBMIT</button>
+        </mat-card>
+    </div>
+</mat-card>

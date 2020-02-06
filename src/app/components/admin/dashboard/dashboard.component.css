@@ -1,0 +1,21 @@
+.header-menu{
+    background-color: rgb(93, 141, 153);
+    height: 10vh;
+    color: white;
+    font-weight: bold;
+}
+/* // style main content area of dashboard */
+.blue-menu, .content-holder {
+    min-height: 5vh !important;
+    max-height: auto;
+    margin-top: 6vh !important;
+    position: relative;
+  }
+  .blue-menu {
+    position: relative;
+  }
+   /* // style main content area of dashboard */
+   .dashboard-holder {
+   border: 0.5px solid rgb(167, 201, 214);
+   border-radius: 6px;
+  }

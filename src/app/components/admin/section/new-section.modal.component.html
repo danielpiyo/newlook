@@ -1,0 +1,38 @@
+<mat-card class="panel panel-info">
+    <div class="panel-heading">
+        Adding New Section
+    </div>
+    <hr>
+    <div class="opportunity-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Department</mat-label>
+            <mat-select placeholder="Select" [(ngModel)]="sectionModel.department_id" name="department_id">
+                <mat-option *ngFor="let depart of departments" value={{depart.department_id}}>{{depart.department_name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Section Name</mat-label>
+            <input matInput placeholder="Section Name" [(ngModel)]="sectionModel.section_name" #section_name="ngModel"
+                name="section_name">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Section Incharge</mat-label>
+            <input matInput placeholder="Station Incharge" [(ngModel)]="sectionModel.section_incharge"
+                #section_incharge="ngModel" name="section_incharge">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="details" [(ngModel)]="sectionModel.details" #details="ngModel"
+                name="details"></textarea>
+        </mat-form-field>
+
+        <hr>
+        <mat-card mat-dialog-actions>
+            <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+            <button mat-button color="primary" (click)="addSectionNow()">SUBMIT</button>
+        </mat-card>
+    </div>
+</mat-card>

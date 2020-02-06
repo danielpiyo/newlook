@@ -1,0 +1,58 @@
+<div class="float-content panel-info" fxLayout="column">
+        <div class="panel-heading" fxLayout="row">
+            <div fxFlex="50">
+                <h4 class="panel-title">Stations / Deports</h4>
+            </div>
+            <div fxFlex="30"></div>
+            <div fxFlex="20">
+                <mat-form-field style="text-align: left;">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                </mat-form-field>
+            </div>
+        </div>
+        <ng-scrollbar>
+    
+            <table mat-table [dataSource]="dataSource" matSort>
+                <!-- index -->
+                <ng-container matColumnDef="number">
+                    <th mat-header-cell *matHeaderCellDef> No </th>
+                    <td mat-cell *matCellDef="let element; let pager = index;"> {{pager + 1}} </td>
+                </ng-container>
+    
+                <!-- ststion id -->
+                <ng-container matColumnDef="Department">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
+                    <td mat-cell *matCellDef="let element"> {{element.department_name}} </td>
+                </ng-container>
+    
+                <!-- station Name -->
+                <ng-container matColumnDef="Name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Section Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element.section_name }} </td>
+                </ng-container>
+    
+                <!-- station Incharge -->
+                <ng-container matColumnDef="Incharge">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Incharge</th>
+                    <td mat-cell *matCellDef="let element"> {{element.section_incharge}} </td>
+                </ng-container>
+              
+    
+                <!-- created date -->
+                <ng-container matColumnDef="CreatedDate">
+                    <th mat-header-cell *matHeaderCellDef> Date Created </th>
+                    <td mat-cell *matCellDef="let element">{{element.created_date | date: 'dd/MM/yyyy'}}</td>
+                </ng-container>
+    
+                 <!-- details -->
+                 <ng-container matColumnDef="Details">
+                        <th mat-header-cell *matHeaderCellDef> Details </th>
+                        <td mat-cell *matCellDef="let element"> {{element.details}} </td>
+                    </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    
+            </table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+        </ng-scrollbar>
+    </div>

@@ -1,0 +1,32 @@
+
+<mat-card class="panel panel-info">
+    <div class="panel-heading">                
+                Adding New Station
+        </div>
+    <hr>
+    <div class="opportunity-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Station Name</mat-label>
+            <input matInput placeholder="Station Name" [(ngModel)]="stationModel.station_name" #station_name="ngModel"
+                name="station_name">
+        </mat-form-field>     
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Station Incharge</mat-label>
+            <input matInput placeholder="Station Incharge" [(ngModel)]="stationModel.station_incharge" #station_incharge="ngModel"
+                name="station_incharge">
+        </mat-form-field>  
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="details" [(ngModel)]="stationModel.details" #details="ngModel"
+                name="details"></textarea>
+        </mat-form-field>
+        
+        <hr>
+        <mat-card mat-dialog-actions>
+            <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+            <button mat-button color="primary" (click)="addStationNow()">SUBMIT</button>
+        </mat-card>
+    </div>
+</mat-card>

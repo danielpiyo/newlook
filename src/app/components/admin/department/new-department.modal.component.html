@@ -1,0 +1,32 @@
+
+<mat-card class="panel panel-info">
+    <div class="panel-heading">                
+                Adding New Department
+        </div>
+    <hr>
+    <div class="opportunity-container">
+        <mat-form-field appearance="outline">
+            <mat-label>Department Name</mat-label>
+            <input matInput placeholder="Department Name" [(ngModel)]="departmentModel.department_name" #department_name="ngModel"
+                name="department_name">
+        </mat-form-field>     
+        
+        <mat-form-field appearance="outline">
+            <mat-label>Department Incharge</mat-label>
+            <input matInput placeholder="Station Incharge" [(ngModel)]="departmentModel.department_incharge" #department_incharge="ngModel"
+                name="department_incharge">
+        </mat-form-field>  
+
+        <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="details" [(ngModel)]="departmentModel.details" #details="ngModel"
+                name="details"></textarea>
+        </mat-form-field>
+        
+        <hr>
+        <mat-card mat-dialog-actions>
+            <button mat-button color="warn" (click)="onNoClick()">CANCEL</button>
+            <button mat-button color="primary" (click)="addSDepartmentNow()">SUBMIT</button>
+        </mat-card>
+    </div>
+</mat-card>

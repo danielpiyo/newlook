@@ -1,0 +1,66 @@
+<div class="panel-info" data-test="inform">
+    <div class="panel-heading"></div>
+    <div fxLayout="row" fxLayout.lt-sm="column" class="dashboard-holder ">
+
+        <div fxFlex="20" fxFlexOffset="2.5">
+            <mat-card class="users">
+                Total Active Users
+                <br>
+                <h2>{{totalUsers}}</h2>   
+                
+            </mat-card>
+        </div>
+        <div fxFlex="20" fxFlexOffset="2.5">
+            <mat-card class="tt-equip">
+                Total Equipements
+                <br>
+                <h2>{{totalActiveEq}}</h2>
+            </mat-card>
+        </div>
+        <div fxFlex="20" fxFlexOffset="2.5">
+            <mat-card class="store">
+                In Store
+                <br>
+                <h2>{{totalInstore}}</h2>
+            </mat-card>
+        </div>
+        <div fxFlex="20" fxFlexOffset="2.5">
+            <mat-card class="repair">
+                Under Repair
+                <br>
+                <h2>{{totalRepair}}</h2>
+            </mat-card>
+        </div>
+        <div fxFlex="20" fxFlexOffset="2.5">
+            <mat-card class="damaged">
+                Damaged
+                <br>
+                <h2>{{totalDamaged}}</h2>
+            </mat-card>
+        </div>
+    </div> <br>
+
+    <div class="panel-info" data-test="chart">
+        <div class="panel-heading"></div>
+            <div fxLayout="row" fxLayout.lt-sm="column" class="dashboard-holder ">
+            
+                <div fxFlex="70" fxFlexOffset="1.5" class="panel">
+                    <p-toast [style]="{marginTop: '80px'}"></p-toast>
+            
+                    <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)" height="50vh" width="95%"></p-chart>
+                </div>
+                <div fxFlex="30" class="panel-primary">
+                    <mat-card class="panel-heading">
+                        Assets By category
+                    </mat-card>
+                    <mat-card>
+                            <!-- <mat-list>
+                                    <mat-list-item matBadge="8" matBadgePosition="after" matBadgeColor="accent"> New Request </mat-list-item>
+                                    <mat-list-item matBadge="8" matBadgePosition="after" matBadgeColor="warn"> Pending Request </mat-list-item>
+                                    <mat-list-item matBadge="8" matBadgePosition="after" matBadgeColor="primary"> Resolved Request  </mat-list-item>
+                                   </mat-list> -->
+                                   <p-chart type="doughnut" [data]="dataDough"  height="35vh" width="35wh"></p-chart>
+                    </mat-card>
+                </div>
+                </div>
+    </div>

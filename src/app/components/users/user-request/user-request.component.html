@@ -1,0 +1,23 @@
+<!-- new request -->
+<div class="panel-info">
+    <div class="panel-heading">
+        Please Select The category of the Equipement you want to post Request for
+    </div>
+    <mat-form-field appearance="outline">
+        <mat-label>Request Category</mat-label>
+        <mat-select placeholder="Select" [(ngModel)]="requestModel.category_id" name="category_id" #category_id="ngModel">
+            <mat-option *ngFor="let category of allCategories" value="{{category.category_id}}">
+                {{category.category_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> <hr>
+    <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput name="details" cols="30" rows="8" [(ngModel)]="requestModel.details"
+            #details="ngModel"></textarea>
+    </mat-form-field> <br>
+    <mat-action-row>
+            <button mat-button color="warn" (click)="reset()">Cancel</button>
+            <button mat-button color="primary" (click)="submit()">Submit</button>
+          </mat-action-row>
+</div>
