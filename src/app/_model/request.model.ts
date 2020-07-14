@@ -1,6 +1,8 @@
 export class Request {
-    user_id: number;
-    category_id: number;
-    details: string;
+    category: number;
+    desc: string;
+    department: number;
+    deport: number;
+    region: number;
     token: string;
 }

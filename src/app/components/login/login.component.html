@@ -2,16 +2,17 @@
     <mat-card>
         <app-alert></app-alert>
     </mat-card>
-    <div class="p-body"> 
+    <div class="p-body">         
 
         <div class="login-container">
+            <div style="color: white; text-align: center;"><h2>NCPB SERVICE REQUEST SYSTEM</h2></div>
             <mat-card class="login-form" [formGroup]="loginForm">
                     
                 <mat-form-field appearance="outline" >
-                    <mat-label class="login-label">Email:</mat-label>
-                    <input matInput placeholder="Email" formControlName="email" id="email">
-                    <mat-error *ngIf="hasError('email', 'required')" style="color:red" data-test="email-required">Email is required</mat-error>
-                    <mat-error *ngIf="hasError('email', 'pattern')" style ="color:red" data-test="email-error">Please enter a valid email.</mat-error>
+                    <mat-label class="login-label">Username:</mat-label>
+                    <input matInput placeholder="Username" formControlName="username" id="username">
+                    <mat-error *ngIf="hasError('username', 'required')" style="color:red" data-test="email-required">Username is required</mat-error>
+                    <!-- <mat-error *ngIf="hasError('email', 'pattern')" style ="color:red" data-test="email-error">Please enter a valid email.</mat-error> -->
                     
                 </mat-form-field>                
                 <mat-form-field appearance="outline" >

@@ -1,20 +1,44 @@
 <!-- new request -->
 <div class="panel-info">
     <div class="panel-heading">
-        Please Select The category of the Equipement you want to post Request for
+        Please Select Select your region, Deport, Department and Request category.
     </div>
     <mat-form-field appearance="outline">
-        <mat-label>Request Category</mat-label>
-        <mat-select placeholder="Select" [(ngModel)]="requestModel.category_id" name="category_id" #category_id="ngModel">
-            <mat-option *ngFor="let category of allCategories" value="{{category.category_id}}">
-                {{category.category_name}}
+        <mat-label>User Region</mat-label>
+        <mat-select placeholder="Select" [(ngModel)]="requestModel.region" name="region" #region="ngModel">
+            <mat-option *ngFor="let rig of allregions" value="{{rig.rig_id}}" (click)=getAllDeports(rig.rig_id) >
+                {{rig.rig_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> 
+    <mat-form-field appearance="outline">
+        <mat-label>User Deport</mat-label>
+        <mat-select placeholder="Select" [(ngModel)]="requestModel.deport" name="deport" #deport="ngModel">
+            <mat-option *ngFor="let depo of allDeports" value="{{depo.depo_id}}">
+                {{depo.depo_name}}
             </mat-option>
         </mat-select>
     </mat-form-field> <hr>
     <mat-form-field appearance="outline">
+        <mat-label>Department</mat-label>
+        <mat-select placeholder="Select" [(ngModel)]="requestModel.department" name="department" #department="ngModel">
+            <mat-option *ngFor="let department of alldepartments" value="{{department.dep_id}}">
+                {{department.dep_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> 
+    <mat-form-field appearance="outline">
+        <mat-label>Request Category</mat-label>
+        <mat-select placeholder="Select" [(ngModel)]="requestModel.category" name="category" #category="ngModel">
+            <mat-option *ngFor="let category of allCategories" value="{{category.cat_id}}">
+                {{category.cat_name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> <hr>
+    <mat-form-field appearance="outline" class="mat-textarea">
         <mat-label>Description</mat-label>
-        <textarea matInput name="details" cols="30" rows="8" [(ngModel)]="requestModel.details"
-            #details="ngModel"></textarea>
+        <textarea matInput name="desc" cols="30" rows="8" [(ngModel)]="requestModel.desc"
+            #desc="ngModel"></textarea>
     </mat-form-field> <br>
     <mat-action-row>
             <button mat-button color="warn" (click)="reset()">Cancel</button>

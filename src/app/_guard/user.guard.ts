@@ -7,15 +7,15 @@ import { User } from '../_model/user';
   providedIn: 'root'
 })
 export class UserGuard implements CanActivate {
-  currentUser: User;
+  currentToken: string;
 
   constructor(private router: Router) {
-    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentToken = JSON.parse(localStorage.getItem('currentToken'));
   }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      if (this.currentUser.role === 'user') {
+      if (this.currentToken) {
         return true;
       }
       this.router.navigate([''], { queryParams: { returnUrl: state.url }});

@@ -6,8 +6,8 @@
     margin-left: 2%;
     margin-right: 2%;   
     background-color:#000000;
-    background-image:url('../../../assets/images/Reorder-point.jpg');
-    background:linear-gradient(rgba(0,0,0, 0.3), rgba(0,0,0, 0.3)), url('../../../assets/images/Reorder-point.jpg');
+    background-image:url('../../../assets/images/back_g.png');
+    background:linear-gradient(rgba(0,0,0, 0.3), rgba(0,0,0, 0.3)), url('../../../assets/images/back_g.png');
     background-position:left top;
     background-attachment:inherit;
     background-size:cover;

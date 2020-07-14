@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   ) { }
 
   loginForm = new FormGroup({
-    email: new FormControl(''),
+    username: new FormControl(''),
     password: new FormControl(''),
   });
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       //   Validators.required,
       //   Validators.pattern('[^ @]*@[^ @]*')]],
       // password: ['', Validators.required]
-      email: ['', [ Validators.required, Validators.pattern('[^ @]*@[^ @]*')]],
+      username: ['', [ Validators.required, Validators.pattern('[^ @]*@[^ @]*')]],
       password: ['', [ Validators.required, Validators.minLength(6)]]
     });
   }
@@ -46,33 +46,27 @@ export class LoginComponent implements OnInit {
     const formData = this.loginForm.value;
 
     const payload: Login = {
-      email: formData.email,
+      username: formData.username + "@cereals",
       password: formData.password
     };
+   if(formData.username != "" || formData.password != ""){ 
     this.loginSubscription = this.loginService.logIn(payload)
-      .subscribe((data: LoginResponse) => {
-        this.currentPerson = data.user;
-        if (data.token) {
-          // storing the token
-          localStorage.setItem('currentToken', JSON.stringify(data.token));
-          localStorage.setItem('currentUser', JSON.stringify(data.user));
-          switch (this.currentPerson.role) {
-            case 'user':
-              this.alertService.success('You have succesfully Loged In as a Cashier');
-              this.router.navigate(['/user']);
-              break;
-            case 'admin':
-              this.alertService.success('You have succesfully Loged In as an Administrator');
-              this.router.navigate(['/admin']);
-              this.loading = false;
-              break;
-          }
-        }
-      }, error => {
-        this.loading = false;
-        this.alertService.error(error.error.message);
-        console.log(error);
-      });
+    .subscribe((data: LoginResponse) => {
+      this.currentPerson = data.user;
+        // storing the token
+        localStorage.setItem('currentToken', JSON.stringify(data.token));
+        localStorage.setItem('currentUser', JSON.stringify(data.user));
+        this.alertService.success('You have succesfully Loged In as a User');
+        this.router.navigate(['/user']);    
+    }, error => {
+      this.loading = false;
+      this.alertService.error(error.error.message);
+      console.log(error);
+    });
+   } else{
+     this.loading = false;
+     this.alertService.error('Please Enter Detaild to Login');
+   }
   }
 
   public hasError = (controlName: string, errorName: string) => {
