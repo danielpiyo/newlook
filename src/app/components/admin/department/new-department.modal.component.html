@@ -7,8 +7,8 @@
     <div class="opportunity-container">
         <mat-form-field appearance="outline">
             <mat-label>Department Name</mat-label>
-            <input matInput placeholder="Department Name" [(ngModel)]="departmentModel.department_name" #department_name="ngModel"
-                name="department_name">
+            <input matInput placeholder="Department Name" [(ngModel)]="departmentModel.dep_name" #dep_name="ngModel"
+                name="dep_name">
         </mat-form-field>     
         
         <mat-form-field appearance="outline">
@@ -17,11 +17,11 @@
                 name="department_incharge">
         </mat-form-field>  
 
-        <mat-form-field appearance="outline">
+        <!-- <mat-form-field appearance="outline">
             <mat-label>Description</mat-label>
             <textarea matInput placeholder="details" [(ngModel)]="departmentModel.details" #details="ngModel"
                 name="details"></textarea>
-        </mat-form-field>
+        </mat-form-field> -->
         
         <hr>
         <mat-card mat-dialog-actions>

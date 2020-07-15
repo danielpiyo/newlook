@@ -12,7 +12,7 @@ export class UsersComponent implements OnInit {
   allUsers: [];
   currentUserToken: UserToken = new UserToken();
 
-  public displayedColumns = ['number', 'Station', 'Department', 'Section', 'Username', 'Name', 'Email', 'Age', 'Employment'];
+  public displayedColumns = ['Number', 'Region', 'Deport', 'Role', 'Username', 'Email', 'CreatedBy'];
 
   public dataSource = new MatTableDataSource<Users>();
 
@@ -43,18 +43,12 @@ export class UsersComponent implements OnInit {
   }
 }
 
-export interface Users {
-  user_id: number;
-  department_name: string;
-  section_name: string;
-  station_name: string;
+export interface Users {  
   username: string;
-  role: string;
-  first_name: string;
-  last_name: string;
+  role: string;  
   email: string;
-  age: string;
-  employment_year: string;
-  created_date: Date;
+  region: number;
+  deport: number; 
+  id: number;
   created_by: number;
 }

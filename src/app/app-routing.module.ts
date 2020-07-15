@@ -19,12 +19,28 @@ import { AdminGuard } from './_guard/admin.guard';
 import { UserGuard } from './_guard/user.guard';
 import { ReportsComponent } from './components/admin/reports/reports.component';
 import { LogsTrackComponent } from './components/admin/logs-track/logs-track.component';
+import { AdminLoginComponent } from './components/login/admin-login/admin-login.component';
+import { AllRequestComponent } from './components/admin/requests/all-request/all-request.component';
+import { AssignedRequestComponent } from './components/admin/requests/assigned-request/assigned-request.component';
+import { OpenRequestComponent } from './components/admin/requests/open-request/open-request.component';
+import { EscalatedRequestComponent } from './components/admin/requests/escalated-request/escalated-request.component';
+import { ClosedRequestComponent } from './components/admin/requests/closed-request/closed-request.component';
+import { DeletedRequestComponent } from './components/admin/requests/deleted-request/deleted-request.component';
 
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
+  {path: 'signin', component: AdminLoginComponent},
  {path: 'admin', component: DashboardComponent, canActivateChild: [AdminGuard], children: [
   {path: '', component: AdminHomeComponent, canActivate: [AdminGuard]},
+  // Requests
+  {path: 'requests', component: AllRequestComponent, canActivate: [AdminGuard]},
+  {path: 'assigned-requests', component: AssignedRequestComponent, canActivate: [AdminGuard]},
+  {path: 'open-requests', component: OpenRequestComponent, canActivate: [AdminGuard]},
+  {path: 'escalated-requests', component: EscalatedRequestComponent, canActivate: [AdminGuard]},
+  {path: 'closed-requests', component: ClosedRequestComponent, canActivate: [AdminGuard]},
+  {path: 'deleted-requests', component: DeletedRequestComponent, canActivate: [AdminGuard]},
+  // //
   {path: 'station', component: StationComponent, canActivate: [AdminGuard]},
   {path: 'department', component: DepartmentComponent, canActivate: [AdminGuard]},
   {path: 'section', component: SectionComponent, canActivate: [AdminGuard]},

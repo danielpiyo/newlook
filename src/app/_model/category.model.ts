@@ -1,12 +1,12 @@
 export class CategoryUpdate {
-    id: number;
-    category_name: string;
+    cat_id: number;
+    cat_name: string;
     details: string;
     token: string;
 }
 
 export class NewCategory {
-    category_name: string;
+    cat_name: string;
     details: string;
     token: string;
 }

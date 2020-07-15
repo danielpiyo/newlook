@@ -95,11 +95,11 @@ export class NewCategoryModal {
     this.categoryService.newCategory(this.categoryModel)
     .subscribe((response) => {
         this.alertService.success('Category Added Succesfully');
-        console.log('NewCat', response);
-        this.router.navigate(['/admin/categories']);
+        // console.log('NewCat', response);
+        this.router.navigate(['/admin']);
         this.messageService.add({
           severity: 'info', summary: `Succesfully Added New Category`,
-          detail: this.categoryModel.category_name
+          detail: this.categoryModel.cat_name
         });
         this.onNoClick();
     }, error => {

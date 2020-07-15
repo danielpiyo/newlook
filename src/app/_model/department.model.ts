@@ -1,14 +1,12 @@
 export class DepartmentUpdate {
-    id: number;
-    department_name: string;
-    department_incharge: string;
-    details: string;
+    dep_id: number;
+    dep_name: string;
+    department_incharge: string;    
     token: string;
 }
 
 export class NewDepartment {
-    department_name: string;
-    department_incharge: string;
-    details: string;
+    dep_name: string;
+    department_incharge: string;    
     token: string;
 }

@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 import { LoginService, AlertService } from 'src/app/_service';
-import { Login, LoginResponse } from 'src/app/_model/login.model';
+import { AdminLogin, AdminLoginResponse } from 'src/app/_model/login.model';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.css']
 })
+export class AdminLoginComponent implements OnInit {
 
-export class LoginComponent implements OnInit {
   loading = false;
   currentPerson: any;
   loginSubscription: Subscription;
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
       //   Validators.required,
       //   Validators.pattern('[^ @]*@[^ @]*')]],
       // password: ['', Validators.required]
-      username: ['', [ Validators.required, Validators.pattern('[^ @]*@[^ @]*')]],
+      email: ['', [ Validators.required, Validators.pattern('[^ @]*@[^ @]*')]],
       password: ['', [ Validators.required, Validators.minLength(6)]]
     });
   }
@@ -46,19 +46,30 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     const formData = this.loginForm.value;
 
-    const payload: Login = {
-      username: formData.username + "@cereals",
+    const payload: AdminLogin = {
+      email: formData.email,
       password: formData.password
     };
-   if(formData.username != "" || formData.password != ""){ 
-    this.loginSubscription = this.loginService.logIn(payload)
-    .subscribe((data: LoginResponse) => {
+   if(formData.email != "" || formData.password != ""){ 
+    this.loginSubscription = this.loginService.adminLogIn(payload)
+    .subscribe((data: AdminLoginResponse) => {
       this.currentPerson = data.user;
+      if (data.token) {
         // storing the token
         localStorage.setItem('currentToken', JSON.stringify(data.token));
         localStorage.setItem('currentUser', JSON.stringify(data.user));
-        this.alertService.success('You have succesfully Loged In as a User');
-        this.router.navigate(['/user']);    
+        switch (this.currentPerson.role) {
+          case 'technician':
+            this.alertService.success('You have succesfully Loged In as a technician');
+            this.router.navigate(['/tech']);
+            break;
+          case 'admin':
+            this.alertService.success('You have succesfully Loged In as an Administrator');
+            this.router.navigate(['/admin']);
+            this.loading = false;
+            break;
+        }
+      }
     }, error => {
       this.loading = false;
       this.alertService.error(error.error.message);

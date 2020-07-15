@@ -35,35 +35,47 @@ export class DashboardComponent implements OnInit {
         icon: 'pi pi-pw pi-file'
       },
       {
-        label: 'Station/Depot',
+        label: 'Requests',
         icon: 'pi pi-pw pi-file',
         items: [
           { label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => { this.stationComponent.addNewStation(); } },
           { separator: true },
-          { label: 'View', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/station',
+          { label: 'View All', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/requests',
+          routerLinkActiveOptions: true},
+          { separator: true },
+          { label: 'View Open', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/open-requests',
+          routerLinkActiveOptions: true},
+          { separator: true },
+          { label: 'View Assigned', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/assigned-requests',
+          routerLinkActiveOptions: true},
+          { separator: true },
+          { label: 'View Escalated', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/escalated-requests',
+          routerLinkActiveOptions: true},
+          { separator: true },
+          { label: 'View Closed', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/closed-requests',
           routerLinkActiveOptions: true}
         ]
       },
       {
-        label: 'Department',
+        label: 'Departments',
         icon: 'pi pi-fw pi-pencil',
         items: [
           { label: 'New', icon: 'pi pi-fw pi-plus',  command: (event) => { this.departmentComponent.addNewDepartment(); } },
           { separator: true },
-          { label: 'View', icon: 'pi pi-fw pi-external-link' , routerLink: '/admin/department',
+          { label: 'View All', icon: 'pi pi-fw pi-external-link' , routerLink: '/admin/department',
           routerLinkActiveOptions: true }
         ]
       },
-      {
-        label: 'Section',
-        icon: 'pi pi-fw pi-pencil',
-        items: [
-          { label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => { this.sectionComponent.addNewSection(); } },
-          { separator: true },
-          { label: 'View', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/section',
-          routerLinkActiveOptions: true  }
-        ]
-      },
+      // {
+      //   label: 'Regions',
+      //   icon: 'pi pi-fw pi-pencil',
+      //   items: [
+      //     { label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => { this.sectionComponent.addNewSection(); } },
+      //     { separator: true },
+      //     { label: 'View All', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/section',
+      //     routerLinkActiveOptions: true  }
+      //   ]
+      // },
       {
         label: 'Category',
         icon: 'pi pi-fw pi-cog',
@@ -74,19 +86,19 @@ export class DashboardComponent implements OnInit {
           routerLinkActiveOptions: true}
         ]
       },
-      {
-        label: 'Equipements/ Items',
-        icon: 'pi pi-fw pi-cog',
-        items: [
-          { label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => { this.equipementComponent.addNewEquipement(); }  },
-          { separator: true },
-          { label: 'View All', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equipements',
-          routerLinkActiveOptions: true , },
-          { label: 'Allocated', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-allocated' },
-          { label: 'In Store', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-store' },
-          { label: 'Under Repair', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-repaire' }
-        ]
-      },
+      // {
+      //   label: 'Equipements/ Items',
+      //   icon: 'pi pi-fw pi-cog',
+      //   items: [
+      //     { label: 'New', icon: 'pi pi-fw pi-plus', command: (event) => { this.equipementComponent.addNewEquipement(); }  },
+      //     { separator: true },
+      //     { label: 'View All', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equipements',
+      //     routerLinkActiveOptions: true , },
+      //     { label: 'Allocated', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-allocated' },
+      //     { label: 'In Store', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-store' },
+      //     { label: 'Under Repair', icon: 'pi pi-fw pi-external-link', routerLink: '/admin/equi-repaire' }
+      //   ]
+      // },
       {
         label: 'Users',  routerLink: '/admin/users',  icon: 'pi pi-fw pi-plus-users'},
       {

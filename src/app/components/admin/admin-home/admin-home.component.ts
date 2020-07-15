@@ -42,16 +42,23 @@ export class AdminHomeComponent implements OnInit {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'Allocation Requests',
+          label: 'Navishion Requests',
           data: [65, 59, 80, 81, 56, 55, 40],
           fill: true,
           borderColor: '#4bc0c0'
         },
         {
-          label: 'Reallocation Request',
+          label: 'Network Request',
           data: [28, 48, 40, 19, 86, 27, 90],
           fill: true,
           borderColor: '#565656',
+
+        },
+        {
+          label: 'Email Request',
+          data: [28, 28, 40, 19, 36, 27, 10],
+          fill: true,
+          borderColor: '#378fe7',
 
         }
       ]

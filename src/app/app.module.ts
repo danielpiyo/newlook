@@ -47,7 +47,16 @@ import { ReportsComponent } from './components/admin/reports/reports.component';
 import { AppSettings } from './shared/app.setting';
 import { LogsTrackComponent } from './components/admin/logs-track/logs-track.component';
 import { AdvancedCategoryComponent } from './components/admin/advanced-category/advanced-category.component';
-
+import {SidebarModule} from 'primeng/sidebar';
+import { ButtonModule } from 'primeng/button';
+import { AdminLoginComponent } from './components/login/admin-login/admin-login.component';
+import { AllRequestComponent } from './components/admin/requests/all-request/all-request.component';
+import { OpenRequestComponent } from './components/admin/requests/open-request/open-request.component';
+import { AssignedRequestComponent } from './components/admin/requests/assigned-request/assigned-request.component';
+import { EscalatedRequestComponent } from './components/admin/requests/escalated-request/escalated-request.component';
+import { ClosedRequestComponent } from './components/admin/requests/closed-request/closed-request.component';
+import { DeletedRequestComponent } from './components/admin/requests/deleted-request/deleted-request.component';
+import { RegionComponent } from './components/admin/region/region.component';
 
 
 @NgModule({
@@ -60,10 +69,10 @@ import { AdvancedCategoryComponent } from './components/admin/advanced-category/
     NewStationModal, NewDepartmentModal, NewSectionModal, NewEquipementModal,
     RepairEquipementModal,
     UserHomeComponent,
-    UserRequestComponent, UserDashboardComponent, ReportsComponent, LogsTrackComponent, AdvancedCategoryComponent
+    UserRequestComponent, UserDashboardComponent, ReportsComponent, LogsTrackComponent, AdvancedCategoryComponent, AdminLoginComponent, AllRequestComponent, OpenRequestComponent, AssignedRequestComponent, EscalatedRequestComponent, ClosedRequestComponent, DeletedRequestComponent, RegionComponent
   ],
   imports: [
-    BrowserModule, HttpClientModule, BrowserAnimationsModule, PanelMenuModule,
+    BrowserModule, HttpClientModule, BrowserAnimationsModule, PanelMenuModule, SidebarModule, ButtonModule,
     AppRoutingModule, MaterialModule, FormsModule, ReactiveFormsModule, FlexLayoutModule,
     ToastModule, MessagesModule, MessageModule, ChartModule, NgScrollbarModule, NgxChartsModule
   ],

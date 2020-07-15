@@ -1,0 +1,83 @@
+<div class="float-content panel-info" fxLayout="column">
+    <div class="panel-heading" fxLayout="row">
+        <div fxFlex="50">
+            <h4 class="panel-title">Open Requests</h4>
+        </div>
+        <div fxFlex="30"></div>
+        <div fxFlex="20">
+            <mat-form-field style="text-align: left;">
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+        </div>
+    </div>
+    <ng-scrollbar>
+
+        <table mat-table [dataSource]="dataSource" matSort>
+            <!-- index -->
+            <ng-container matColumnDef="number">
+                <th mat-header-cell *matHeaderCellDef> No </th>
+                <td mat-cell *matCellDef="let element; let pager = index;"> {{pager + 1}} </td>
+            </ng-container>
+
+            <!-- category -->
+            <ng-container matColumnDef="Category">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+            </ng-container>
+
+            <!-- Deport Name -->
+            <ng-container matColumnDef="Deport">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Deport </th>
+                <td mat-cell *matCellDef="let element"> {{element.deport }} </td>
+            </ng-container>
+
+            <!-- Description -->
+            <ng-container matColumnDef="Description">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+            </ng-container>
+
+
+            <!-- Status -->
+            <ng-container matColumnDef="Status">
+                <th mat-header-cell *matHeaderCellDef>Status</th>
+                <td mat-cell *matCellDef="let element">{{element.status}}</td>
+            </ng-container>
+
+            <!-- CreatedAt -->
+            <ng-container matColumnDef="CreatedAt">
+                <th mat-header-cell *matHeaderCellDef> CreatedAt</th>
+                <td mat-cell *matCellDef="let element">{{element.createdAt}}</td>
+            </ng-container>
+
+            <!-- Action -->
+            <ng-container matColumnDef="Action">
+                <th mat-header-cell *matHeaderCellDef> Assign</th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button color="primary" (click)="needToAllocate(element.id)">
+                        <mat-icon class="mat-19">input</mat-icon>
+                    </button>
+                    <div *ngIf="state=='allocate' && element.id ==selectedId">
+                        <mat-form-field appearance="outline">
+                            <mat-label>ICTO</mat-label>
+                            <mat-select placeholder="Select">
+                                <mat-option *ngFor="let user of allUsers">
+                                    <div *ngIf="element.rigion ==user.region">
+                                        <div (click)="allocateNow(element.id, user.username)">
+                                            {{user.username}} at {{user.region}}
+                                        </div>
+                                    </div>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
+    </ng-scrollbar>
+</div>

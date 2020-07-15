@@ -1,7 +1,7 @@
 <div class="float-content panel-info" fxLayout="column">
         <div class="panel-heading" fxLayout="row">
             <div fxFlex="50">
-                <h4 class="panel-title">Stations / Deports</h4>
+                <h4 class="panel-title">Available Departments</h4>
             </div>
             <div fxFlex="30"></div>
             <div fxFlex="20">
@@ -22,33 +22,22 @@
                 <!-- ststion id -->
                 <ng-container matColumnDef="DepartmentId">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> DepartmentId </th>
-                    <td mat-cell *matCellDef="let element"> {{element.department_id}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.dep_id}} </td>
                 </ng-container>
     
                 <!-- station Name -->
                 <ng-container matColumnDef="Name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Department Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.department_name }} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.dep_name }} </td>
                 </ng-container>
     
-                <!-- station Incharge -->
+                <!-- Department Incharge -->
                 <ng-container matColumnDef="Incharge">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Incharge</th>
                     <td mat-cell *matCellDef="let element"> {{element.department_incharge}} </td>
-                </ng-container>
-              
+                </ng-container>             
     
-                <!-- created date -->
-                <ng-container matColumnDef="CreatedDate">
-                    <th mat-header-cell *matHeaderCellDef> Date Created </th>
-                    <td mat-cell *matCellDef="let element">{{element.created_date | date: 'dd/MM/yyyy'}}</td>
-                </ng-container>
-    
-                 <!-- details -->
-                 <ng-container matColumnDef="Details">
-                        <th mat-header-cell *matHeaderCellDef> Details </th>
-                        <td mat-cell *matCellDef="let element"> {{element.details}} </td>
-                    </ng-container>
+                
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     

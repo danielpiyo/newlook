@@ -16,7 +16,7 @@ export class DepartmentComponent implements OnInit {
   allDepartments: [];
   currentUserToken: UserToken = new UserToken();
 
-  public displayedColumns = ['number', 'DepartmentId', 'Name', 'Incharge', 'CreatedDate', 'Details'];
+  public displayedColumns = ['number', 'DepartmentId', 'Name', 'Incharge'];
 
   public dataSource = new MatTableDataSource<Departments>();
 
@@ -54,16 +54,13 @@ addNewDepartment() {
 }
 
 export interface Departments {
-  department_id: number;
-  department_name: string;
-  department_incharge: string;
-  details: string;
-  created_by: number;
-  created_date: Date;
+  dep_id: number;
+  dep_name: string;
+  department_incharge: string;  
 }
 
 
-// child component for adding new station
+// child component for adding new Department
 @Component({
   // tslint:disable-next-line: component-selector
   selector: 'new-department-modal',
@@ -92,9 +89,9 @@ export class NewDepartmentModal {
    this.departmentModel.token = this.userToken.token;
    this.departmentService.addNewDepartment(this.departmentModel)
    .subscribe((response) => {
-     this.alertService.success('New Station Succesfully added');
+     this.alertService.success('New Department Succesfully added');
      console.log('NewDepart', response);
-     this.router.navigate(['/admin/department']);
+     this.router.navigate(['/admin']);
      this.onNoClick();
    }, error => {
      console.log('NewDepartErr', error);

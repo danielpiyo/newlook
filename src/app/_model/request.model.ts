@@ -6,3 +6,8 @@ export class Request {
     region: number;
     token: string;
 }
+
+export class ToaAssignRequest {
+    req_id: number;
+    username: string;
+}
