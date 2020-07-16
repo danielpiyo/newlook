@@ -55,7 +55,7 @@ export class OpenRequestComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  needToAllocate(id){
+  needToAllocate(id: number){
     this.selectedId = id;
     this.getICTOUsers();
     this.state = 'allocate';
@@ -69,13 +69,15 @@ export class OpenRequestComponent implements OnInit {
       console.log(error)
     })
   }
-  allocateNow(id, username){
+  allocateNow(id: number, username: string){
     console.log(id, username)
     this.toAssignModel.req_id = id;
     this.toAssignModel.username = username;
+    this.toAssignModel.token = this.currentUserToken.token;
     this.requestService.allocateRequest(this.toAssignModel)
     .subscribe((res)=>{
       this.alertservice.success('Succesfully Assigned the Request');
+      this.router.navigate(['/admin']);
     },
     error =>{
       console.log(error);

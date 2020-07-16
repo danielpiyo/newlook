@@ -5,36 +5,18 @@ import { Subscription } from 'rxjs';
 import { MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { Settings } from 'src/app/shared/setting.model';
 import { AppSettings } from 'src/app/shared/app.setting';
+import { RequestService } from 'src/app/_service/request.service';
 
-export interface StationEquipements {
-  equipement_id: number;
-  equipement_name: string;
-  equipement_type: string;
-  equipement_brand: string;
-  equipement_serial: string;
-  details: string;
-  status: string;
-  allocated_to: string;
-  to_repair_yn: string;
-  company_repair: string;
-  damaged_yn: string;
-  damaged_yes_by: string;
-  department_name: string;
-  section_name: string;
-  station_name: string;
+export interface Requests {
+  id: number, category: string, department: string, rigion: string,
+  deport: string, description: string, requestUsername: string,
+  status: string, createdAt: Date, assigned: string, assignedBy: string,
+  assignedTo: string, assignedAt: Date, escalated: string, escalatedBy: string,
+  escalatedTo: string, escalatedAt: Date, assignedClosed: string, AssignedClosedAt: Date,
+  escalatedClosed: string, escalatedClosedAt: Date, deleted: string, deletedBy: string,
+  deletedAt: Date, closed: string, closedAt: Date, closedBy: string
 }
-// equipements
-export interface Equipements {
-  equipement_id: number;
-  category_name: string;
-  equipement_name: string;
-  equipement_brand: string;
-  equipement_type: string;
-  equipement_serial: string;
-  details: string;
-  created_by: string;
-  status: string;
-}
+
 
 @Component({
   selector: 'app-reports',
@@ -43,8 +25,8 @@ export interface Equipements {
 })
 export class ReportsComponent implements OnInit {
   userToken: UserToken = new UserToken();
-  allStationEquip: [];
-  station = false;
+  allRegionReq: [];
+  region = false;
   department = false;
   stationSubscription: Subscription;
   categoryData: any;
@@ -53,7 +35,7 @@ export class ReportsComponent implements OnInit {
   allCategories: any;
   availableCategories: any;
   categoryTotals: any;
-  equipement = false;
+  requests = false;
   allEquipements: [];
   equipementSubscription: Subscription;
   // /category + chart
@@ -70,60 +52,64 @@ export class ReportsComponent implements OnInit {
 
 
 
-  public displayedColumns = ['No', 'Station', 'Department', 'Equipement', 'AllocatedTo', 'Status'];
-  public displayedColumnsDepartment = ['No', 'Department', 'Section', 'Equipement', 'AllocatedTo', 'Status'];
+  public displayedColumns = ['No', 'Region', 'Deport', 'Department', 'Category', 'Description', 'Status'];
+  public displayedColumnsDepartment = ['No', 'Department', 'Category', 'Description', 'CreatedAt', 'Status'];
 
-  public dataSource = new MatTableDataSource<StationEquipements>();
+  public dataSource = new MatTableDataSource<Requests>();
 
-    @ViewChild(MatSort, { static: true }) sort: MatSort;
-    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-    public displayedColumnsEquipements = ['number', 'Category', 'Name', 'Brand', 'Type', 'Sereals', 'Details', 'Status'];
+  public displayedColumnsRequest = ['number', 'RequestBy', 'Category', 'Description', 'Status', 'AssignedTo', 'AssignedAt', 'EscalatedTo', 'EscalatedAt'];
 
-  public dataSourceEquipements = new MatTableDataSource<Equipements>();
+  public dataSourceRequest = new MatTableDataSource<Requests>();
 
-    @ViewChild(MatSort, { static: true }) Eqsort: MatSort;
-    @ViewChild(MatPaginator, { static: true }) Eqpaginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) Eqsort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) Eqpaginator: MatPaginator;
 
-  constructor(private reoprtService: EquipementService, public appSettings: AppSettings) {
+  constructor(
+    private reoprtService: EquipementService,
+    public appSettings: AppSettings,
+    private requestService: RequestService
+  ) {
     this.userToken.token = JSON.parse(localStorage.getItem('currentToken'));
     this.getCategoryReport();
     this.settings = this.appSettings.settings;
-   }
+  }
 
   ngOnInit() {
-    this.getStationEquipemnt();
+    this.getRegionReport();
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.dataSourceEquipements.paginator = this.Eqpaginator;
-    this.dataSourceEquipements.sort = this.Eqsort;
-    this.getEquipements();
-    Object.assign(this.categoryDataChart);
+    this.dataSourceRequest.paginator = this.Eqpaginator;
+    this.dataSourceRequest.sort = this.Eqsort;
+    this.getRequestReport();
+    // Object.assign(this.categoryDataChart);
   }
 
-  getStationEquipemnt() {
-    this.stationSubscription = this.reoprtService.getStationEquip(this.userToken)
+  getRegionReport() {
+    this.stationSubscription = this.requestService.getAllrequest(this.userToken)
       .subscribe((res: []) => {
-        this.allStationEquip = res;
-        this.dataSource.data = this.allStationEquip as StationEquipements[];
+        this.allRegionReq = res;
+        this.dataSource.data = this.allRegionReq as Requests[];
       }, error => {
-        console.log('StationErr', error);
+        console.log('RegionErr', error);
       });
   }
-// go to station
-goTostation() {
-  this.department = false;
-  this.station = true;
-  this.category = false;
-  this.equipement = false;
+  // go to station
+  goToregion() {
+    this.department = false;
+    this.region = true;
+    this.category = false;
+    this.requests = false;
 
-}
+  }
   // department
   goTodepartment() {
     this.department = true;
-    this.station = false;
+    this.region = false;
     this.category = false;
-    this.equipement = false;
+    this.requests = false;
 
   }
 
@@ -135,99 +121,55 @@ goTostation() {
   // category
   getCategoryReport() {
     this.categorySubscription = this.reoprtService.getCategoryReport(this.userToken)
-    .subscribe((res: []) => {
-      this.allCategories = res;
-      this.categoryDataChart =  res;
-      // this.allCategories.forEach(element => {
-      //   this.availableCategories = element.name;
-      //   this.categoryTotals = element.value;
-      //   console.log(this.allCategories);
-      //   console.log(this.availableCategories);
-      //   console.log( this.categoryTotals );
-        // this.chart();
-      // });
-    }, error => {
-      console.log('categoryErrr', error);
-    });
+      .subscribe((res: []) => {
+        this.allCategories = res;
+        this.categoryDataChart = res;
+       
+      }, error => {
+        console.log('categoryErrr', error);
+      });
   }
-    categoryReport() {
-      this.category = true;
-      this.station = false;
-      this.department = false;
-      this.equipement = false;
-    }
-
-// chart() {
-//   this.categoryDataChart = [
-//     {
-//       name: this.availableCategories,
-//       value: this.categoryTotals
-//     },
-//   ];
-// }
-    // tslint:disable-next-line: member-ordering
-
-    public onSelect(event) {
-      console.log(event);
-    }
-    // equipments
-getEquipements() {
-    this.equipementSubscription =  this.reoprtService.getAllEquipements(this.userToken)
+  categoryReport() {
+    this.category = true;
+    this.region = false;
+    this.department = false;
+    this.requests = false;
+  }
+  public onSelect(event) {
+    console.log(event);
+  }
+  // equipments
+  getRequestReport() {
+    this.equipementSubscription = this.requestService.getAllrequest(this.userToken)
       .subscribe((response: []) => {
         this.allEquipements = response;
-        this.dataSourceEquipements.data = this.allEquipements as Equipements[];
+        this.dataSourceRequest.data = this.allEquipements as Requests[];
       });
-    }
-  // filter for search
-applyFilterEq(filterValue: string) {
-      this.dataSourceEquipements.filter = filterValue.trim().toLowerCase();
-    }
-
-    // getEquipments
-getEquip() {
-      this.category = false;
-      this.station = false;
-      this.department = false;
-      this.equipement = true;
-    }
-
-    // destroy subscriptions
-    // tslint:disable-next-line: use-lifecycle-interface
-ngOnDestroy() {
-      if (this.categorySubscription) {
-        this.categorySubscription.unsubscribe();
-      }
-      if (this.stationSubscription) {
-        this.stationSubscription.unsubscribe();
-      }
-      if (this.equipementSubscription) {
-        this.equipementSubscription.unsubscribe();
-      }
-    }
-}
-export const single1 = [
-  {
-    name: 'Germany',
-    value: 40632
-  },
-  {
-    name: 'United States',
-    value: 49737
-  },
-  {
-    name: 'France',
-    value: 36745
-  },
-  {
-    name: 'United Kingdom',
-    value: 36240
-  },
-  {
-    name: 'Spain',
-    value: 33000
-  },
-  {
-    name: 'Italy',
-    value: 35800
   }
-];
+  // filter for search
+  applyFilterEq(filterValue: string) {
+    this.dataSourceRequest.filter = filterValue.trim().toLowerCase();
+  }
+
+  // getEquipments
+  getEquip() {
+    this.category = false;
+    this.region = false;
+    this.department = false;
+    this.requests = true;
+  }
+
+  // destroy subscriptions
+  // tslint:disable-next-line: use-lifecycle-interface
+  ngOnDestroy() {
+    if (this.categorySubscription) {
+      this.categorySubscription.unsubscribe();
+    }
+    if (this.stationSubscription) {
+      this.stationSubscription.unsubscribe();
+    }
+    if (this.equipementSubscription) {
+      this.equipementSubscription.unsubscribe();
+    }
+  }
+}

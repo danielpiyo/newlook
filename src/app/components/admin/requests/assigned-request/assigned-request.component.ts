@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserToken } from 'src/app/_model/user';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { RequestService } from 'src/app/_service/request.service';
+import { ToaCloseRequest } from 'src/app/_model/request.model';
+import { AlertService } from 'src/app/_service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-assigned-request',
@@ -11,15 +14,20 @@ import { RequestService } from 'src/app/_service/request.service';
 export class AssignedRequestComponent implements OnInit {
   allAssignedRequests: [];
   currentUserToken: UserToken = new UserToken();
+  toCloseModel: ToaCloseRequest = new ToaCloseRequest();
 
-  public displayedColumns = ['number', 'Category', 'Deport', 'Description', 'Status', 'AssignedAt', 'AssignedTo'];
+  public displayedColumns = ['number', 'Category', 'Deport', 'Description', 'Status', 'AssignedAt', 'AssignedTo', 'Action'];
 
   public dataSource = new MatTableDataSource<Requests>();
 
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  constructor(private equipementService: RequestService) {
+  constructor(
+    private requestService: RequestService,
+     private alertService: AlertService,
+     private router: Router
+     ) {
     this.currentUserToken.token = JSON.parse(localStorage.getItem('currentToken'));
   }
 
@@ -30,7 +38,7 @@ export class AssignedRequestComponent implements OnInit {
   }
 
   getAllAssinedRequest() {
-    this.equipementService.getAllAssignedRequest(this.currentUserToken)
+    this.requestService.getAllAssignedRequest(this.currentUserToken)
       .subscribe((response: []) => {
         this.allAssignedRequests = response;
         this.dataSource.data = this.allAssignedRequests as Requests[];
@@ -42,7 +50,15 @@ export class AssignedRequestComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
+  needToClose(id: number) {
+    this.toCloseModel.req_id = id;
+    this.toCloseModel.token = this.currentUserToken.token
+    this.requestService.closeRequest(this.toCloseModel).subscribe((res) => {
+      console.log(res);
+      this.alertService.success('Succesfully closed');
+      this.router.navigate(['/admin'])
+    });
+  }
 }
 
 

@@ -5,6 +5,7 @@ import { EquipementService } from 'src/app/_service/equipement.service';
 import { Subscription } from 'rxjs';
 import { Settings } from 'src/app/shared/setting.model';
 import { AppSettings } from 'src/app/shared/app.setting';
+import { RequestService } from 'src/app/_service/request.service';
 
 @Component({
   selector: 'app-admin-home',
@@ -15,14 +16,16 @@ export class AdminHomeComponent implements OnInit {
   data: any;
   dataDough: any;
   userToken: UserToken = new UserToken();
-  totalUsers: any;
-  totalActiveEq: any;
-  totalInstore: any;
-  totalDamaged: any;
-  totalRepair: any;
-
+  totalRequests: any;
+  totalOpen: any;
+  totalAssigned: any;
+  totalClosed: any;
+  totalEscalated: any;
+  //
+  
   constructor(private messageService: MessageService,
-              private equipmentService: EquipementService) {
+    private requestService: RequestService,
+    private equipmentService: EquipementService) {
     this.userToken.token = JSON.parse(localStorage.getItem('currentToken'));
 
   }
@@ -30,13 +33,17 @@ export class AdminHomeComponent implements OnInit {
   ngOnInit() {
     this.damageCharts();
     // this.doughnuts();
-    this.getTotalActiveEquip();
-    this.getTotalUsers();
-    this.getTotalDamaged();
-    this.getTotalEquipeRepaire();
-    this.getTotalEquipStore();
+    this.getTotalActiveOpen();
+    this.getTotalRequests();
+    this.getTotalAssigned();
+    this.getTotalEscalated();
+    this.getTotalClosed();
+    this.getMonths();
   }
 
+  getMonths() {
+    
+  }
   damageCharts() {
     this.data = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -65,11 +72,11 @@ export class AdminHomeComponent implements OnInit {
     };
   }
 
-  onSelect(event) {
+  onSelect(event: any) {
     console.log(event);
   }
 
-  selectData(event) {
+  selectData(event: { element: { _datasetIndex: string | number; _index: string | number; }; }) {
     this.messageService.add({
       severity: 'info', summary: `Selected`,
       detail: this.data.datasets[event.element._datasetIndex].data[event.element._index]
@@ -77,39 +84,39 @@ export class AdminHomeComponent implements OnInit {
   }
 
   // reports values
-  getTotalUsers() {
-    this.equipmentService.getTotalActiveUsers(this.userToken)
+  getTotalRequests() {
+    this.equipmentService.getTotalRequest(this.userToken)
       .subscribe((res) => {
-        this.totalUsers = res[0].total_users;
+        this.totalRequests = res[0].total_requests;
       }, error => {
         console.log('UserError', error);
       });
   }
-  getTotalActiveEquip() {
-    this.equipmentService.getTotalActiveEquipements(this.userToken)
+  getTotalActiveOpen() {
+    this.equipmentService.getTotalActiveOpen(this.userToken)
       .subscribe((res) => {
-        this.totalActiveEq = res[0].total_equipements;
+        this.totalOpen = res[0].total_open;
       });
   }
 
-  getTotalEquipStore() {
-    this.equipmentService.getTotalEquipementsStore(this.userToken)
+  getTotalAssigned() {
+    this.equipmentService.getTotalAssigned(this.userToken)
       .subscribe((res) => {
-        this.totalInstore = res[0].total_equipements_store;
+        this.totalAssigned = res[0].total_assigned;
       });
   }
 
-  getTotalDamaged() {
-    this.equipmentService.getTotaldamagedEquipements(this.userToken)
+  getTotalClosed() {
+    this.equipmentService.getTotalClosed(this.userToken)
       .subscribe((res) => {
-        this.totalDamaged = res[0].total_equipements_damage;
+        this.totalClosed = res[0].total_closed;
       });
   }
 
-  getTotalEquipeRepaire() {
-    this.equipmentService.getTotalEquipementsRepair(this.userToken)
+  getTotalEscalated() {
+    this.equipmentService.getTotalEscalated(this.userToken)
       .subscribe((res) => {
-        this.totalRepair = res[0].total_equipements_repair;
+        this.totalEscalated = res[0].total_escalated;
       });
   }
 }

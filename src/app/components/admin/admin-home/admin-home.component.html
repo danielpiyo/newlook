@@ -6,7 +6,7 @@
             <mat-card class="users">
                 Total Recieved
                 <br>
-                <h2>{{totalUsers}}</h2>   
+                <h2>{{totalRequests}}</h2>   
                 
             </mat-card>
         </div>
@@ -14,28 +14,28 @@
             <mat-card class="tt-equip">
                 Open Requests
                 <br>
-                <h2>{{totalActiveEq}}</h2>
+                <h2>{{totalOpen}}</h2>
             </mat-card>
         </div>
         <div fxFlex="20" fxFlexOffset="2.5">
             <mat-card class="store">
                 Assigned Requests
                 <br>
-                <h2>{{totalInstore}}</h2>
+                <h2>{{totalAssigned}}</h2>
             </mat-card>
         </div>
         <div fxFlex="20" fxFlexOffset="2.5">
             <mat-card class="repair">
                 Escalated Requests
                 <br>
-                <h2>{{totalRepair}}</h2>
+                <h2>{{totalEscalated}}</h2>
             </mat-card>
         </div>
         <div fxFlex="20" fxFlexOffset="2.5">
             <mat-card class="damaged">
                 Closed Requests
                 <br>
-                <h2>{{totalDamaged}}</h2>
+                <h2>{{totalClosed}}</h2>
             </mat-card>
         </div>
     </div> <br>
@@ -51,7 +51,7 @@
                 </div>
                 <div fxFlex="40" class="panel-info">
                     <mat-card class="panel-heading">
-                        Requests By category
+                        Requests By category (Weekly)
                     </mat-card>
                     <div>
                         <app-advanced-category></app-advanced-category>

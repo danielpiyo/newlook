@@ -10,4 +10,10 @@ export class Request {
 export class ToaAssignRequest {
     req_id: number;
     username: string;
+    token: string;
+}
+
+export class ToaCloseRequest {
+    req_id: number;    
+    token: string;
 }

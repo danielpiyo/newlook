@@ -57,28 +57,28 @@ toStoreNow(storeModel: DataToStore) {
 }
 
 // report home
-getTotalActiveUsers(tokenModel: UserToken) {
-    return this.http.post(`${environment.baseUrl}/totalUsers`, tokenModel);
+getTotalRequest(tokenModel: UserToken) {
+    return this.http.post(`${environment.baseUrl}/totalRequests`, tokenModel);
 }
 
 // total active equipements
-getTotalActiveEquipements(tokenModel: UserToken) {
-  return this.http.post(`${environment.baseUrl}/activeEquipements`, tokenModel);
+getTotalActiveOpen(tokenModel: UserToken) {
+  return this.http.post(`${environment.baseUrl}/totalOpen`, tokenModel);
 }
 
 // total damaged equipements
-getTotaldamagedEquipements(tokenModel: UserToken) {
-  return this.http.post(`${environment.baseUrl}/totalDamaged`, tokenModel);
+getTotalClosed(tokenModel: UserToken) {
+  return this.http.post(`${environment.baseUrl}/totalClosed`, tokenModel);
 }
 
 // total in store
-getTotalEquipementsStore(tokenModel: UserToken) {
-  return this.http.post(`${environment.baseUrl}/totalInStore`, tokenModel);
+getTotalAssigned(tokenModel: UserToken) {
+  return this.http.post(`${environment.baseUrl}/totalAssigned`, tokenModel);
 }
 
 // total equipements under repair
-getTotalEquipementsRepair(tokenModel: UserToken) {
-  return this.http.post(`${environment.baseUrl}/totalRepair`, tokenModel);
+getTotalEscalated(tokenModel: UserToken) {
+  return this.http.post(`${environment.baseUrl}/totalEscalated`, tokenModel);
 }
 // stationEquipement
 getStationEquip(userToken: UserToken) {

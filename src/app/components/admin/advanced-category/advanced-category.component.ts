@@ -51,9 +51,9 @@ export class AdvancedCategoryComponent implements OnInit {
       this.allCategories.forEach(element => {
         this.availableCategories = element.name;
         this.categoryTotals = element.value;
-        console.log(this.allCategories);
-        console.log(this.availableCategories);
-        console.log( this.categoryTotals );
+        // console.log(this.allCategories);
+        // console.log(this.availableCategories);
+        // console.log( this.categoryTotals );
       });
     }, error => {
       console.log('categoryErrr', error);

@@ -2,29 +2,40 @@
     <div class="panel-heading"></div>
     <div fxLayout="row" fxLayout.lt-sm="column" class="dashboard-holder ">
 
-        <div fxFlex="20" fxFlexOffset="2.5">
+        <div fxFlex="25" fxFlexOffset="2.5">
             <mat-card class="station">
-                <div (click)="goTostation()">Station Report</div>
+                <div (click)="goToregion()">
+                    <button color="accent" mat-raised-button>Region Report
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_forward</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </div>
-        <div fxFlex="20" fxFlexOffset="2.5">
+        <div fxFlex="25" fxFlexOffset="2.5">
             <mat-card class="department">
-                <div (click)="goTodepartment()"> Department Report </div>
+                <div (click)="goTodepartment()">
+                    <button color="accent" mat-raised-button>Department Report
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_forward</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </div>
-        <div fxFlex="20" fxFlexOffset="2.5">
+        <div fxFlex="25" fxFlexOffset="2.5">
             <mat-card class="category">
-               <div (click)="categoryReport()"> Category Report </div>
+                <div (click)="categoryReport()">
+                    <button color="accent" mat-raised-button> Category Report
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_forward</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </div>
-        <div fxFlex="20" fxFlexOffset="2.5">
+        <div fxFlex="25" fxFlexOffset="2.5">
             <mat-card class="equipment">
-                <div (click)="getEquip()">Equipement Report</div>
-            </mat-card>
-        </div>
-        <div fxFlex="20" fxFlexOffset="2.5">
-            <mat-card class="model">
-                Model Report
+                <div (click)="getEquip()">
+                    <button color="accent" mat-raised-button>Requests Report
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">arrow_forward</mat-icon>
+                    </button>
+                </div>
             </mat-card>
         </div>
     </div>
@@ -35,16 +46,16 @@
     <!-- station -->
     <div fxLayout="row" fxLayout.lt-sm="column">
         <div fxFlex="100" fxFlexOffset="2.5">
-            <div class="panel-success" *ngIf="station">
-                    <div class="panel-heading" fxLayout="row">
-                            <div fxFlex="50">Station With Equipement Allocated</div>
-                            <div fxFlex="20"></div>
-                            <div fxFlex="20">
-                                <mat-form-field style="text-align: left;">
-                                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
-                                </mat-form-field>
-                            </div>
-                        </div>
+            <div class="panel-success" *ngIf="region">
+                <div class="panel-heading" fxLayout="row">
+                    <div fxFlex="50">Request raised per Region</div>
+                    <div fxFlex="20"></div>
+                    <div fxFlex="20">
+                        <mat-form-field style="text-align: left;">
+                            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+                        </mat-form-field>
+                    </div>
+                </div>
                 <ng-scrollbar>
 
                     <table mat-table [dataSource]="dataSource" matSort>
@@ -54,30 +65,51 @@
                             <td mat-cell *matCellDef="let element; let pager = index;"> {{pager + 1}} </td>
                         </ng-container>
 
-                        <!-- ststion  -->
-                        <ng-container matColumnDef="Station">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Station </th>
-                            <td mat-cell *matCellDef="let element"> {{element.station_name}} </td>
+                        <!-- Region  -->
+                        <ng-container matColumnDef="Region">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Region </th>
+                            <td mat-cell *matCellDef="let element"> {{element.rigion}} </td>
+                        </ng-container>
+
+                        <!-- Deport  -->
+                        <ng-container matColumnDef="Deport">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Deport </th>
+                            <td mat-cell *matCellDef="let element"> {{element.deport}} </td>
                         </ng-container>
 
                         <!-- department Name -->
                         <ng-container matColumnDef="Department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
-                            <td mat-cell *matCellDef="let element"> {{element.department_name }} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.department}} </td>
                         </ng-container>
 
-                        <!-- equipement -->
-                        <ng-container matColumnDef="Equipement">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipement</th>
-                            <td mat-cell *matCellDef="let element"> {{element.equipement_name}} </td>
+                        <!-- Category -->
+                        <ng-container matColumnDef="Category">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+                            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
                         </ng-container>
 
+                        <!-- Description -->
+                        <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+                            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                        </ng-container>
 
                         <!-- allocated to -->
-                        <ng-container matColumnDef="AllocatedTo">
-                            <th mat-header-cell *matHeaderCellDef> AllocatedTo </th>
-                            <td mat-cell *matCellDef="let element">{{element.allocated_to}}</td>
-                        </ng-container>
+                        <!-- <ng-container matColumnDef="AllocatedTo">
+                           <div *ngIf="element.assigned =='Y' && element.escalated =='N'">
+                            <th mat-header-cell *matHeaderCellDef> AssignedTo </th>
+                            <td mat-cell *matCellDef="let element">{{element.assignedTo}}</td>
+                           </div>
+                           <div *ngIf="element.escalated =='Y' && element.assigned =='N'">
+                            <th mat-header-cell *matHeaderCellDef> EscalatedTo</th>
+                            <td mat-cell *matCellDef="let element">{{element.escalatedTo}}</td>
+                           </div>
+                           <div *ngIf="element.escalated =='Y' && element.assigned =='Y'">
+                            <th mat-header-cell *matHeaderCellDef>Assigned => Escalated</th>
+                            <td mat-cell *matCellDef="let element">{{element.assignedTo}} => {{element.escalatedTo}}</td>
+                           </div>                            
+                        </ng-container>  -->
 
                         <!-- status -->
                         <ng-container matColumnDef="Status">
@@ -96,7 +128,7 @@
             <!-- department -->
             <div class="panel-success" *ngIf="department">
                 <div class="panel-heading" fxLayout="row">
-                    <div fxFlex="50">Departments With Equipement Allocated</div>
+                    <div fxFlex="50">Request Raised per Department</div>
                     <div fxFlex="20"></div>
                     <div fxFlex="20">
                         <mat-form-field style="text-align: left;">
@@ -116,26 +148,26 @@
                         <!-- Department  -->
                         <ng-container matColumnDef="Department">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> Department </th>
-                            <td mat-cell *matCellDef="let element"> {{element.department_name}} </td>
+                            <td mat-cell *matCellDef="let element"> {{element.department}} </td>
                         </ng-container>
 
-                        <!-- section Name -->
-                        <ng-container matColumnDef="Section">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Section </th>
-                            <td mat-cell *matCellDef="let element"> {{element.section_name }} </td>
+                        <!-- Category Name -->
+                        <ng-container matColumnDef="Category">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                            <td mat-cell *matCellDef="let element"> {{element.category }} </td>
                         </ng-container>
 
-                        <!-- equipement -->
-                        <ng-container matColumnDef="Equipement">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Equipement</th>
-                            <td mat-cell *matCellDef="let element"> {{element.equipement_name}} </td>
+                        <!-- description -->
+                        <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+                            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
                         </ng-container>
 
 
-                        <!-- allocated to -->
-                        <ng-container matColumnDef="AllocatedTo">
-                            <th mat-header-cell *matHeaderCellDef> AllocatedTo </th>
-                            <td mat-cell *matCellDef="let element">{{element.allocated_to}}</td>
+                        <!-- Created at -->
+                        <ng-container matColumnDef="CreatedAt">
+                            <th mat-header-cell *matHeaderCellDef> CreatedAt</th>
+                            <td mat-cell *matCellDef="let element">{{element.createdAt}}</td>
                         </ng-container>
 
                         <!-- status -->
@@ -155,10 +187,10 @@
 
             <!-- category -->
             <mat-card class="panel-primary" *ngIf="category">
-                <div class="panel-heading">Chart Representation of Allocated Equipements Category</div>                   
-                <mat-card>                        
-                        <div class="w-100 h-300p">
-                                <!-- <ngx-charts-pie-chart
+                <div class="panel-heading">Chart Representation of Request per Category (Weekly)</div>
+                <mat-card>
+                    <div class="w-100 h-300p">
+                        <!-- <ngx-charts-pie-chart
                                 [scheme]="colorScheme"
                                 [results]="categoryDataChart"
                                 [legend]="showLegend"
@@ -168,83 +200,86 @@
                                 [gradient]="gradient"
                                 (select)="onSelect($event)">
                             </ngx-charts-pie-chart>           -->
-                            <ngx-charts-pie-grid
-                    [scheme]="colorScheme"
-                    [results]="categoryDataChart"
-                    (select)="onSelect($event)">
-                </ngx-charts-pie-grid>  
-                        </div>
-                    </mat-card>
+                        <ngx-charts-pie-grid [scheme]="colorScheme" [results]="categoryDataChart"
+                            (select)="onSelect($event)">
+                        </ngx-charts-pie-grid>
+                    </div>
+                </mat-card>
             </mat-card>
 
             <!-- equipements -->
-            <div class="panel-success" *ngIf="equipement">
-                    <div class="panel-heading" fxLayout="row">
-                            <div fxFlex="50">
-                                <h4 class="panel-title">Equipements</h4>
-                            </div>
-                            <div fxFlex="20"></div>
-                            <div fxFlex="30">
-                                <mat-form-field style="text-align: left;">
-                                    <input matInput (keyup)="applyFilterEq($event.target.value)" placeholder="Search">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <ng-scrollbar>
-                    
-                            <table mat-table [dataSource]="dataSourceEquipements" matSort>
-                                <!-- index -->
-                                <ng-container matColumnDef="number">
-                                    <th mat-header-cell *matHeaderCellDef> No </th>
-                                    <td mat-cell *matCellDef="let element; let pager = index;"> {{pager + 1}} </td>
-                                </ng-container>
-                              
-                                <!-- category -->
-                                <ng-container matColumnDef="Category">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.category_name}} </td>
-                                </ng-container>
-                    
-                                <!-- equipement Name -->
-                                <ng-container matColumnDef="Name">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.equipement_name }} </td>
-                                </ng-container>
-                    
-                                <!-- equipement brand -->
-                                <ng-container matColumnDef="Brand">
-                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Brand</th>
-                                    <td mat-cell *matCellDef="let element"> {{element.equipement_brand}} </td>
-                                </ng-container>
-                              
-                    
-                                <!-- created date -->
-                                <ng-container matColumnDef="Type">
-                                    <th mat-header-cell *matHeaderCellDef> Model</th>
-                                    <td mat-cell *matCellDef="let element">{{element.equipement_type}}</td>
-                                </ng-container>
-                
-                                <!-- serial -->                
-                                 <ng-container matColumnDef="Sereals">
-                                        <th mat-header-cell *matHeaderCellDef> Sereals</th>
-                                        <td mat-cell *matCellDef="let element">{{element.equipement_serial}}</td>
-                                    </ng-container>
-                                 <!-- details -->
-                                 <ng-container matColumnDef="Details">
-                                        <th mat-header-cell *matHeaderCellDef> Details </th>
-                                        <td mat-cell *matCellDef="let element"> {{element.details}} </td>
-                                    </ng-container>
-                
-                                    <!-- status -->
-                                    <ng-container matColumnDef="Status">
-                                            <th mat-header-cell *matHeaderCellDef> Status </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-                                        </ng-container>
-                                <tr mat-header-row *matHeaderRowDef="displayedColumnsEquipements"></tr>
-                                <tr mat-row *matRowDef="let row; columns: displayedColumnsEquipements;"></tr>
-                    
-                            </table>                           
-                        </ng-scrollbar>
+            <div class="panel-success" *ngIf="requests">
+                <div class="panel-heading" fxLayout="row">
+                    <div fxFlex="50">
+                        <h4 class="panel-title">Requests</h4>
+                    </div>
+                    <div fxFlex="20"></div>
+                    <div fxFlex="30">
+                        <mat-form-field style="text-align: left;">
+                            <input matInput (keyup)="applyFilterEq($event.target.value)" placeholder="Search">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <ng-scrollbar>
+
+                    <table mat-table [dataSource]="dataSourceRequest" matSort>
+                        <!-- index -->
+                        <ng-container matColumnDef="number">
+                            <th mat-header-cell *matHeaderCellDef> No </th>
+                            <td mat-cell *matCellDef="let element; let pager = index;"> {{pager + 1}} </td>
+                        </ng-container>
+
+                        <!-- category -->
+                        <ng-container matColumnDef="Category">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+                            <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+                        </ng-container>
+
+                        <!-- Description Name -->
+                        <ng-container matColumnDef="Description">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+                            <td mat-cell *matCellDef="let element"> {{element.description }} </td>
+                        </ng-container>
+
+                        <!-- Assigned To -->
+                        <ng-container matColumnDef="AssignedTo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> AssignedTo</th>
+                            <td mat-cell *matCellDef="let element"> {{element.assignedTo}} </td>
+                        </ng-container>
+
+
+                        <!-- Assigned date -->
+                        <ng-container matColumnDef="AssignedAt">
+                            <th mat-header-cell *matHeaderCellDef> AssignedAt</th>
+                            <td mat-cell *matCellDef="let element">{{element.assignedAt}}</td>
+                        </ng-container>
+
+                        <!-- EscalatedTo -->
+                        <ng-container matColumnDef="EscalatedTo">
+                            <th mat-header-cell *matHeaderCellDef> EscalatedTo</th>
+                            <td mat-cell *matCellDef="let element">{{element.escalatedTo}}</td>
+                        </ng-container>
+                        <!-- Escalated At -->
+                        <ng-container matColumnDef="EscalatedAt">
+                            <th mat-header-cell *matHeaderCellDef> EscalatedAt </th>
+                            <td mat-cell *matCellDef="let element"> {{element.escalatedAt}} </td>
+                        </ng-container>
+
+                        <!-- status -->
+                        <ng-container matColumnDef="Status">
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                        </ng-container>
+                        <!-- RequestBy -->
+                        <ng-container matColumnDef="RequestBy">
+                            <th mat-header-cell *matHeaderCellDef> RequestBy </th>
+                            <td mat-cell *matCellDef="let element"> {{element.requestUsername}} </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumnsRequest"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumnsRequest;"></tr>
+
+                    </table>
+                </ng-scrollbar>
             </div>
             <!-- paninator -->
             <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
